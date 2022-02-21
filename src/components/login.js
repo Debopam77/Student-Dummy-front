@@ -27,15 +27,10 @@ function Login({setLoggedIn}) {
         console.log(url)
 
         try {
-            console.log(inputValues)
             //Change the sent state to true
             setSent(true)
             //const response = await 
-            const res = await axios.post(url, {
-                "registration" : "21MCS0003",
-                "password" : "Qwerty123"
-            })
-            
+            const res = await axios.post(url, inputValues)
             //Store login data in the browser local storage
             localStorage.setItem('loggedInStudent', JSON.stringify({
                 ...res.data,
@@ -45,7 +40,7 @@ function Login({setLoggedIn}) {
             setRedirectState(true)
         }catch(e){
             console.log(e)
-            alert(e.response.data.error)
+            alert(e)
         }
     }
 
