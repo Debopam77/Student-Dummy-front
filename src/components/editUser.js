@@ -1,13 +1,12 @@
 import React,{useState} from 'react';
 import '../styles/index.css'
 import '../styles/loginRegister.css'
-import {Routes, Route} from 'react-router-dom';
+import {Navigate} from 'react-router-dom'
 import axios from 'axios';
 
-function EditUser() {
+function EditUser({setLoggedIn}) {
     //Use to track value of student found in local storate
     const student = JSON.parse(localStorage.getItem('loggedInStudent'))
-    console.log(student)
     //State to figure out when to redirect page back to user detail page after edit or create
     const[redirectState, setRedirectState] = useState(false)
 
@@ -25,7 +24,7 @@ function EditUser() {
     
     //State to store the created or updated user string
     const [newValue, setNewValue] = useState(defaultValue)
-
+    let deleteFlag = false
     //onChange triggered function to update 
     const getValue = (event)=> {
         
@@ -53,7 +52,7 @@ function EditUser() {
     const submitData = async (event)=> {
         event.preventDefault();
         let payload = newValue;
-        console.log(payload)
+
         const url = 'http://localhost:5000/student'
 
         //Call the edit user api
@@ -66,7 +65,7 @@ function EditUser() {
             }))
 
             //Tell the component to redirect back to the details page
-            setRedirectState(true);
+            alert('Saved!')
         }catch(e){
             console.log(e)
             alert(e.message);
@@ -76,9 +75,7 @@ function EditUser() {
     //Redirect to home once logged in
     if(redirectState) {
         return (
-            <Routes>
-                <Route path='/' />
-            </Routes>      
+            <Navigate to='/delete'/>     
         )
     }
 
@@ -128,8 +125,10 @@ function EditUser() {
                 <div className='descriptionInput'><div className='description'>Interests</div>
                 <input type="text" name={'interests'} defaultValue={student.interests} onChange={getValue}></input></div>
 
-                <button>Submit</button>
+                <button>Save</button>
             </form>
+                <button onClick={()=>{
+                    setRedirectState(true)}}>Delete User</button>
         </div>
     );
 

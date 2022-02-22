@@ -9,6 +9,7 @@ import Logout from './components/logout'
 import EditUser from './components/editUser'
 import Navbar from './components/navbar'
 import ListUsers from './components/listUsers'
+import Delete from './components/delete'
 
 function Router() {
 
@@ -27,7 +28,8 @@ function Router() {
             <Route path='/register' element={<Register setLoggedIn={setLoggedIn}/>}/>
             <Route path='/login' element={<Login setLoggedIn={setLoggedIn}/>}/>
             <Route path='/logout' element={<Logout setLoggedIn={setLoggedIn}/>}/>
-            <Route path='/me' element={<EditUser loggedIn={loggedIn}/>}/>
+            <Route path='/delete' element={<Delete setLoggedIn={setLoggedIn}/>}/>
+            <Route path='/me/*' element={<EditUser setLoggedIn={setLoggedIn}/>}/>
             <Route path='/all' element={<ListUsers/>}/>
             <Route path='/' element={<Home loggedIn={loggedIn}/>}/>
         </Routes>    
